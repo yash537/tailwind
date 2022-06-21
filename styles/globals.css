@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form_wrapper input{
+@apply my-3
+w-full
+rounded-lg
+}

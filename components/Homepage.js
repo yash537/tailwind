@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
-import img from "../public/img/logo.jpg";
-import form from "../public/img/form.png";
 
 export const Homepage = () => {
   const [clientName, setClientName] = useState("");
   const [formValues, setFormValues] = useState([{ task: " " }]);
   const [formValuesin, setFormValuesIn] = useState([{ task: " " }]);
   const [note, setNote] = useState("");
-  const copyToClipboard = (str) => {
+  const copyToClipboard = () => {
     const str = document.getElementById("demo").innerText;
-    console.log(str);
     const el = document.createElement("textarea");
     el.value = str;
     el.setAttribute("readonly", "");
@@ -92,7 +89,7 @@ export const Homepage = () => {
             ></input>
             <label className="block">List of completed task</label>
             {formValues.map((element, index) => (
-              <div className="flex">
+              <div key={index} className="flex">
                 <input
                   className="placeholder:italic placeholder:text-slate-400 basis-3/5"
                   type="text"
@@ -120,7 +117,7 @@ export const Homepage = () => {
             </button>
             <label className="block">list of inprogress task</label>
             {formValuesin.map((element, index) => (
-              <div className="flex">
+              <div key={index} className="flex">
                 <input
                   className="placeholder:italic placeholder:text-slate-400 basis-3/5"
                   type="text"
@@ -162,7 +159,7 @@ export const Homepage = () => {
           <div>List Of Completd task:</div>
           <ul>
             {formValues.map((element, index) => (
-              <li>{element.task}</li>
+              <li key={index}>{element.task}</li>
             ))}
           </ul>
           <br />
@@ -170,7 +167,7 @@ export const Homepage = () => {
           <div>List of inprogress task</div>
           <ul>
             {formValuesin.map((element, index) => (
-              <li>{element.task}</li>
+              <li key={index}>{element.task}</li>
             ))}
           </ul>
           <br />

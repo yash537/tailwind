@@ -102,7 +102,7 @@ export const Homepage = () => {
           <img src="../img/display.png" className="h-20 w-20 mr-3"></img>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex md:justify-around lg:justify-center ">
         <div className="flex flex-col basis-1/2 bg-paper rounded-3xl my-20 mx-20 h-200">
           <form className="form_wrapper px-20 py-20">
             <label className="block">Client Name</label>
@@ -111,6 +111,7 @@ export const Homepage = () => {
               type="text"
               name="client"
               placeholder="Enter your client name"
+              required
               onChange={handleclient}
             ></input>
 
@@ -122,6 +123,7 @@ export const Homepage = () => {
                   type="text"
                   tabIndex={index}
                   name="task"
+                  required
                   placeholder="Enter your task name"
                   value={element.task || ""}
                   onChange={(e) => handleChange(index, e)}

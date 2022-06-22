@@ -8,6 +8,7 @@ module.exports = {
       backgroundImage: {
         my_bg_image: "url('../public/img/bg.jpg')",
         paper: "url('../public/img/Woman.png')",
+        pin: "url('../public/img/pin.png')",
       },
     },
   },

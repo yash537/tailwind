@@ -6,6 +6,10 @@ export const Homepage = () => {
   const [formValues, setFormValues] = useState([{ task: "" }]);
   const [formValuesin, setFormValuesIn] = useState([{ task: "" }]);
   const [note, setNote] = useState("");
+  const current = new Date();
+  const date = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
   const copyToClipboard = () => {
     const str = document.getElementById("demo").innerText;
     const el = document.createElement("textarea");
@@ -29,9 +33,21 @@ export const Homepage = () => {
   };
 
   const notify = () => toast("Data copied successfully");
-  const taskdone = () => toast("task added successfully");
-  const taskremove = () => toast("task deleted successfully");
+  const taskdone = () => toast.success("task added successfully");
+  const taskremove = () => toast.error("task deleted successfully");
 
+  const handleOnKeyup = (e, index) => {
+    console.log(e);
+    if (e.which === 13 || e.keyCode === "Enter") {
+      addFormFieldsinprogress();
+    }
+  };
+  const handleOnKeyupComplete = (e, index) => {
+    console.log(e);
+    if (e.which === 13 || e.keyCode === "Enter") {
+      addFormFields();
+    }
+  };
   const handleclient = (e) => {
     setClientName(e.target.value);
   };
@@ -74,7 +90,6 @@ export const Homepage = () => {
     setFormValuesIn(newFormValues);
     taskremove();
   };
-  console.log(formValues);
   return (
     <div className="h-screen bg-my_bg_image from-sky-500 to-indigo-500 px-32">
       <div className="flex justify-around">
@@ -98,16 +113,19 @@ export const Homepage = () => {
               placeholder="Enter your client name"
               onChange={handleclient}
             ></input>
+
             <label className="block">List of completed task</label>
             {formValues.map((element, index) => (
               <div key={index} className="flex">
                 <input
                   className="placeholder:italic placeholder:text-slate-400 basis-3/5"
                   type="text"
+                  tabIndex={index}
                   name="task"
                   placeholder="Enter your task name"
                   value={element.task || ""}
                   onChange={(e) => handleChange(index, e)}
+                  onKeyUp={(e) => handleOnKeyupComplete(e)}
                 ></input>
 
                 <button
@@ -132,10 +150,12 @@ export const Homepage = () => {
                 <input
                   className="placeholder:italic placeholder:text-slate-400 basis-3/5"
                   type="text"
+                  tabIndex={index}
                   name="task"
                   placeholder="Enter your task name"
                   value={element.task || ""}
                   onChange={(e) => handleChangeinprogress(index, e)}
+                  onKeyUp={(e) => handleOnKeyup(e)}
                 ></input>
 
                 <button
@@ -165,13 +185,19 @@ export const Homepage = () => {
           </form>
         </div>
         <div className="flex flex-col bg-paper rounded-3xl my-20 mx-20 h-200">
-          <div id="demo" className="flex flex-col basis-1/2 py-20 px-20">
+          <img src="../img/pin.png" className="h-15 w-20 m-5"></img>
+          <div id="demo" className="flex flex-col basis-1/2 py-10 px-20">
             <div>Hello {clientName}</div>
             <br />
+            <label className="block">
+              following are the list of updates for {date}:
+            </label>
             <div>List Of Completd task:</div>
             <ul>
               {formValues.map((element, index) => (
-                <li key={index}>{element.task}</li>
+                <li key={index} className="list-disc mx-10">
+                  {element.task}
+                </li>
               ))}
             </ul>
             <br />
@@ -179,7 +205,9 @@ export const Homepage = () => {
             <div>List of inprogress task</div>
             <ul>
               {formValuesin.map((element, index) => (
-                <li key={index}>{element.task}</li>
+                <li key={index} className="list-disc mx-10">
+                  {element.task}
+                </li>
               ))}
             </ul>
             <br />

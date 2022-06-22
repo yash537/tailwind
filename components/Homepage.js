@@ -3,8 +3,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export const Homepage = () => {
   const [clientName, setClientName] = useState("");
-  const [formValues, setFormValues] = useState([{ task: " " }]);
-  const [formValuesin, setFormValuesIn] = useState([{ task: " " }]);
+  const [formValues, setFormValues] = useState([{ task: "" }]);
+  const [formValuesin, setFormValuesIn] = useState([{ task: "" }]);
   const [note, setNote] = useState("");
   const copyToClipboard = () => {
     const str = document.getElementById("demo").innerText;
@@ -47,12 +47,14 @@ export const Homepage = () => {
 
   let addFormFields = () => {
     setFormValues([...formValues, { task: "" }]);
+    taskdone();
   };
 
   let removeFormFields = (i) => {
     let newFormValues = [...formValues];
     newFormValues.splice(i, 1);
     setFormValues(newFormValues);
+    taskremove();
   };
 
   let handleChangeinprogress = (i, e) => {
@@ -63,12 +65,14 @@ export const Homepage = () => {
 
   let addFormFieldsinprogress = () => {
     setFormValuesIn([...formValuesin, { task: "" }]);
+    taskdone();
   };
 
   let removeFormFieldsinprogress = (i) => {
     let newFormValues = [...formValuesin];
     newFormValues.splice(i, 1);
     setFormValuesIn(newFormValues);
+    taskremove();
   };
   console.log(formValues);
   return (
@@ -193,7 +197,6 @@ export const Homepage = () => {
           >
             <img src="../img/files.png" className="h-20 w-20 mx-60"></img>
           </button>
-          <ToastContainer />
         </div>
       </div>
     </div>

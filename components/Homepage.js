@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const Homepage = () => {
   const [clientName, setClientName] = useState("");
   const [formValues, setFormValues] = useState([{ task: " " }]);
@@ -24,7 +25,13 @@ export const Homepage = () => {
       document.getSelection().removeAllRanges();
       document.getSelection().addRange(selected);
     }
+    // toast("Data copied successfully");
   };
+
+  const notify = () => toast("Data copied successfully");
+  const taskdone = () => toast("task added successfully");
+  const taskremove = () => toast("task deleted successfully");
+
   const handleclient = (e) => {
     setClientName(e.target.value);
   };
@@ -65,7 +72,7 @@ export const Homepage = () => {
   };
   console.log(formValues);
   return (
-    <div className="h-screen bg-gradient-to-r from-sky-500 to-indigo-500 px-32">
+    <div className="h-screen bg-my_bg_image from-sky-500 to-indigo-500 px-32">
       <div className="flex justify-around">
         <div className="flex justify-around bg-slate-500 hover:bg-slate-600 hover:text-white rounded-xl items-center mt-3">
           <label className="my-5 w-24 ml-3">Form Data</label>
@@ -76,8 +83,8 @@ export const Homepage = () => {
           <img src="../img/display.png" className="h-20 w-20 mr-3"></img>
         </div>
       </div>
-      <div className="flex shadow-lg shadow-red-500/50 sha">
-        <div className="flex flex-col basis-1/2 ">
+      <div className="flex">
+        <div className="flex flex-col basis-1/2 bg-paper rounded-3xl my-20 mx-20 h-200">
           <form className="form_wrapper px-20 py-20">
             <label className="block">Client Name</label>
             <input
@@ -153,34 +160,41 @@ export const Homepage = () => {
             ></input>
           </form>
         </div>
-        <div id="demo" className="flex flex-col basis-1/2 py-20 px-20">
-          <div>Hello {clientName}</div>
-          <br />
-          <div>List Of Completd task:</div>
-          <ul>
-            {formValues.map((element, index) => (
-              <li key={index}>{element.task}</li>
-            ))}
-          </ul>
-          <br />
-          <span>{Date}</span>
-          <div>List of inprogress task</div>
-          <ul>
-            {formValuesin.map((element, index) => (
-              <li key={index}>{element.task}</li>
-            ))}
-          </ul>
-          <br />
-          <div></div>
-          <span>{note}</span>
-          <br />
-          <p>Looking forward to hearing from you</p>
-          <p>Thanks and Regards</p>
-        </div>
+        <div className="flex flex-col bg-paper rounded-3xl my-20 mx-20 h-200">
+          <div id="demo" className="flex flex-col basis-1/2 py-20 px-20">
+            <div>Hello {clientName}</div>
+            <br />
+            <div>List Of Completd task:</div>
+            <ul>
+              {formValues.map((element, index) => (
+                <li key={index}>{element.task}</li>
+              ))}
+            </ul>
+            <br />
+            <span>{Date}</span>
+            <div>List of inprogress task</div>
+            <ul>
+              {formValuesin.map((element, index) => (
+                <li key={index}>{element.task}</li>
+              ))}
+            </ul>
+            <br />
+            <div></div>
+            <span>{note}</span>
+            <br />
+            <p>Looking forward to hearing from you</p>
+            <p>Thanks and Regards</p>
+          </div>
 
-        <button id="button1" onClick={() => copyToClipboard("")}>
-          Click to copy
-        </button>
+          <button
+            id="button1"
+            onClick={(copyToClipboard, notify)}
+            className="mb-10"
+          >
+            <img src="../img/files.png" className="h-20 w-20 mx-60"></img>
+          </button>
+          <ToastContainer />
+        </div>
       </div>
     </div>
   );
